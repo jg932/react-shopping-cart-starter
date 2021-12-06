@@ -9,6 +9,7 @@ import productsArr from "./products";
 export default function App() {
   const [products, setProducts] = useState(productsArr);
   const [cart, setCart] = useState([]);
+  
   const addToCart = (index) => {
     setCart([
       ...cart,
@@ -17,8 +18,15 @@ export default function App() {
         price: products[index].price
       }
     ]);
-    console.log(cart)
   }
+
+  const removeFromCart = (index) => {
+    const filteredCart = cart.filter((_, idx) => idx !== index)
+
+    setCart([
+      ...filteredCart,
+    ])
+  };
 
   // create an addToCart function that takes in a product as a param
   // using the ...spread operator add the product to the cart array
@@ -32,7 +40,7 @@ export default function App() {
       <Form />
       <div className="products">
         <AllTheThings productsArr={productsArr} addToCart={addToCart} />
-        <MyShoppingCart cart = {cart}/>
+        <MyShoppingCart cart = {cart} removeFromCart={removeFromCart}/>
       </div>
     </div>
   );
